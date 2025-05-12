@@ -1,4 +1,4 @@
-Invoke-RestMethod -Method Post `
+$loginResponse = Invoke-RestMethod -Method Post `
   -Uri "http://localhost:3001/users/login" `
   -ContentType "application/json" `
   -Body '{
@@ -7,4 +7,5 @@ Invoke-RestMethod -Method Post `
     "password": "senha123"
   }'
 
-  $response.token
+$token = $loginResponse.token
+$token  # Isso mostrará o token completo

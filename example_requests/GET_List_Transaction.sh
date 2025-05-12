@@ -1,5 +1,5 @@
 try {
-    $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjBjNDUzNTRhZjIyMzYwY2M2NjE0ZCIsImlhdCI6MTc0Njk4NDM1NCwiZXhwIjoxNzQ2OTg3OTU0fQ.aSJX4W3pVSXIgeGMseKqTqSuCStLG7p7PMI8YdBxheo"
+    $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjBjNDUzNTRhZjIyMzYwY2M2NjE0ZCIsImlhdCI6MTc0NzAwNzI1NSwiZXhwIjoxNzQ3MDEwODU1fQ.mtyFpA3V4xhnA-vDTAc-Yz80By8mJW80mHWXJTtJ3AU"
     $headers = @{ "Authorization" = "Bearer $token" }
     
     $response = Invoke-RestMethod -Uri "http://localhost:3001/transactions" `
