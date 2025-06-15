@@ -15,7 +15,7 @@ app.use(express.json());
 const corsOptions = {
   origin: [
     'http://localhost:3000',
-    'https://finsync-frontend.vercel.app'
+    'https://finsync-frontend-three.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
