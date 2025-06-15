@@ -1,15 +1,20 @@
 import transactionService from '../services/transaction.service.js';
 
 const createTransaction = async (req, res) => {
-    try {
-        const transaction = await transactionService.createTransaction(req.body, req.userId);
-        res.status(201).json(transaction);
-    } catch (error) {
-        res.status(error.status || 500).json({ 
-            message: error.message || 'Internal server error' 
-        });
-    }
+  try {
+    console.log('➡️ Requisição recebida:', req.body, req.userId);
+
+    const transaction = await transactionService.createTransaction(req.body, req.userId);
+
+    return res.status(201).json(transaction);
+  } catch (error) {
+    console.error('❌ Erro no controller:', error);
+    return res.status(error.status || 500).json({
+      message: error.message || 'Erro interno no servidor'
+    });
+  }
 };
+
 
 const getAllTransactions = async (req, res) => {
     try {

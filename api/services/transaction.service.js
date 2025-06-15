@@ -1,23 +1,30 @@
 import Transaction from '../models/Transaction.js';
 
 const createTransaction = async (transactionData, userId) => {
-  const { title, amount, type, category } = transactionData;
+  try {
+    console.log('🟡 Dados recebidos no serviço:', transactionData, userId);
 
-  if (!title || !amount || !type || !category) {
-    throw { status: 400, message: 'Campos obrigatórios: title, amount, type e category.' };
+    const { title, amount, type, category } = transactionData;
+
+    if (!title || !amount || !type || !category) {
+      throw { status: 400, message: 'Campos obrigatórios: title, amount, type e category.' };
+    }
+
+    const transaction = new Transaction({
+      ...transactionData,
+      userId,
+    });
+
+    const saved = await transaction.save();
+    console.log('✅ Transação salva:', saved);
+    return saved;
+
+  } catch (err) {
+    console.error('❌ Erro no serviço de transação:', err);
+    throw err;
   }
-
-  const transaction = new Transaction({
-    ...transactionData,
-    userId,
-  });
-
-  return await transaction.save();
 };
 
-const getAllTransactions = async (userId) => {
-  return await Transaction.find({ userId }).sort({ date: -1 }); 
-};
 
 const getTransactionById = async (id, userId) => {
   const transaction = await Transaction.findOne({ _id: id, userId });

@@ -34,5 +34,4 @@ app.get('/', (req, res) => {
   res.send({ message: 'API Started' });
 });
 
-// 🟡 Não use app.listen se for Vercel!
 export default app;
