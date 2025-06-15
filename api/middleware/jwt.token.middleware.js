@@ -5,24 +5,23 @@ const verifyToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(403).send({ message: 'No token provided!' });
+      return res.status(403).json({ message: 'Token não fornecido.' });
     }
 
-    // Extrai o token removendo o prefixo "Bearer "
     const token = authHeader.split(' ')[1];
 
-    // Verifica o token
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(401).send({ message: 'Unauthorized!' });
+      if (err || !decoded?.id) {
+        return res.status(401).json({ message: 'Token inválido ou expirado.' });
       }
 
-      req.userId = decoded.userId;
+      req.userId = decoded.id; 
       next();
     });
 
   } catch (error) {
-    return res.status(401).send({ message: 'Unauthorized!' });
+    console.error('Erro ao verificar token:', error);
+    return res.status(401).json({ message: 'Erro de autenticação.' });
   }
 };
 
