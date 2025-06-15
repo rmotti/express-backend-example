@@ -12,7 +12,6 @@ db.connect();
 const app = express();
 app.use(express.json());
 
-// ✅ CORS
 const corsOptions = {
   origin: [
     'http://localhost:3000',
@@ -22,11 +21,10 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
-
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
-// ✅ Rotas
+// Rotas
 app.use("/users", userRoute);
 app.use("/transactions", transactionRoute);
 app.use("/secureExampleRoute", exampleRoute);
