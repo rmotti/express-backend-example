@@ -25,6 +25,9 @@ const createTransaction = async (transactionData, userId) => {
   }
 };
 
+const getAllTransactions = async (userId) => {
+  return await Transaction.find({ userId }).sort({ date: -1 }); 
+};
 
 const getTransactionById = async (id, userId) => {
   const transaction = await Transaction.findOne({ _id: id, userId });
