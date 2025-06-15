@@ -13,32 +13,26 @@ const app = express();
 
 app.use(express.json());
 
-// Configuração de CORS
+// CORS
 const corsOptions = {
   origin: [
-    'http://localhost:3000', // Permite requisições locais durante o desenvolvimento
-    'https://finsync-frontend.vercel.app' // Permite requisições do frontend no Vercel
+    'http://localhost:3000',
+    'https://finsync-frontend.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
-
 app.use(cors(corsOptions));
 
-// Rotas públicas
+// Rotas
 app.use("/users", userRoute);
-
-// Rotas protegidas
 app.use("/transactions", transactionRoute);
 app.use("/secureExampleRoute", exampleRoute);
 
-// Rota principal
 app.get('/', (req, res) => {
   res.send({ message: 'API Started' });
 });
 
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`API server is running on port http://localhost:${PORT}/`);
-});
+// 🟡 Não use app.listen se for Vercel!
+export default app;
