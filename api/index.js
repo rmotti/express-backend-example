@@ -33,4 +33,6 @@ app.get('/', (req, res) => {
   res.send({ message: 'API Started' });
 });
 
-export default app;
+export default (req, res) => {
+  return app(req, res);
+};
