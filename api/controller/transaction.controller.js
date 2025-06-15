@@ -2,18 +2,20 @@ import transactionService from '../services/transaction.service.js';
 
 const createTransaction = async (req, res) => {
   try {
-    console.log('➡️ Requisição recebida:', req.body, req.userId);
+    console.log('➡️ Requisição recebida:', req.body);
+    console.log('🟡 Token decodificado userId:', req.userId);
 
     const transaction = await transactionService.createTransaction(req.body, req.userId);
 
     return res.status(201).json(transaction);
   } catch (error) {
-    console.error('❌ Erro no controller:', error);
+    console.error('❌ ERRO NA CRIAÇÃO:', error); // Adicione isso!
     return res.status(error.status || 500).json({
       message: error.message || 'Erro interno no servidor'
     });
   }
 };
+
 
 
 const getAllTransactions = async (req, res) => {
