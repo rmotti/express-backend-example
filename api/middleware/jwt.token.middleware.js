@@ -1,22 +1,28 @@
 import jwt from 'jsonwebtoken';
 
-const verifyToken = (req, res, next) => {   
-    try{const token = req.headers['authorization'];
-    if (!token) {
-        return res.status(403).send({ message: 'No token provided!' });
+const verifyToken = (req, res, next) => {
+  try {
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(403).json({ message: 'Token não fornecido.' });
     }
+
+    const token = authHeader.split(' ')[1];
+
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(401).send({ message: 'Unauthorized!' });
-        }
-        req.userId = decoded.id;
-        next();
+      if (err || !decoded?.id) {
+        return res.status(401).json({ message: 'Token inválido ou expirado.' });
+      }
+
+      req.userId = decoded.id; 
+      next();
     });
-}
-    catch (error) {
-        console.error('Error in verifying token:', error);
-        return res.status(500).send({ message: 'Internal server error!' });
-    }
-}
+
+  } catch (error) {
+    console.error('Erro ao verificar token:', error);
+    return res.status(401).json({ message: 'Erro de autenticação.' });
+  }
+};
 
 export default verifyToken;

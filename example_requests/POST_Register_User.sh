@@ -1,8 +1,8 @@
-curl --request POST \
-  --url 'http://localhost:3001/users/register' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "username": "rodrigoms",
-    "email": "rodrigo@gmail.com",
+curl -Method POST `
+  -Uri 'http://localhost:3001/users/register' `
+  -Headers @{ 'Content-Type' = 'application/json' } `
+  -Body '{
+    "username": "rodrigo.motti",
+    "email": "rodrigomotti@gmail.com",
     "password": "senha123"
-}'
+  }'
